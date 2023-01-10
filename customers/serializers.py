@@ -9,7 +9,9 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         if not valid_cpf(data['cpf']):
-            raise serializers.ValidationError({'cpf':"The CPF must have 11 digits."})
+            raise serializers.ValidationError({'cpf':"CPF invalid."})
         if not valid_name(data['name']):
             raise serializers.ValidationError({'name':"Do not include numbers in this field."})
+        if not valid_phone(data['phone']):
+            raise serializers.ValidationError({'phone':"The phone number must follow this pattern: XX XXXXX-XXXX"})
         return data
